@@ -34,8 +34,7 @@ class FileStorage:
         from models.base_model import BaseModel
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r") as file:
-                obj_dics = json.load(file)
-                for key, value in obj_dics.items():
+                for key, value in json.load(f).items():
                     value = eval(key.split(".")[0])(**value)
                     self.__objects[key] = value
 
