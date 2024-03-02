@@ -1,3 +1,4 @@
+'''
 #!/usr/bin/python3
 """FileStorage class"""
 
@@ -37,4 +38,4 @@ class FileStorage:
                 for key, value in json.load(f).items():
                     value = eval(key.split(".")[0])(**value)
                     self.__objects[key] = value
-
+'''
