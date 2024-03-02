@@ -1,29 +1,27 @@
-'''
 #!/usr/bin/python3
 """FileStorage class"""
 
 import json
-import os
 
 class FileStorage:
-    """serializes instances to a JSON file and deserializes JSON file to instances"""
+    """ Serializes instances to a JSON file and deserializes JSON file to instances """
 
      __file_path = "file.json"
      __objects = {}
 
     def all(self):
-        """Returns the dictionary __objects"""
+        """ Returns the dictionary __objects """
         
         return self.__objects
     
     def new(self, obj):
-        """Sets in __objects the obj with key <obj class name>.id"""
+        """ Sets in __objects the obj with key <obj class name>.id """
         
         key = f"{type(obj).__name__}.{obj.id}"
         self.__objects[key] = obj
     
     def save(self):
-        """Serializes __objects to the JSON file"""    
+        """ Serializes __objects to the JSON file """
         
         serialized_object = {}
         for key, value in self.__objects.items():
@@ -38,4 +36,3 @@ class FileStorage:
                 for key, value in json.load(f).items():
                     value = eval(key.split(".")[0])(**value)
                     self.__objects[key] = value
-'''
