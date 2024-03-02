@@ -1,3 +1,4 @@
+'''
 #!/usr/bin/python3
 """
 This is User class to represent new users
@@ -11,3 +12,4 @@ class User(BaseModel):
     password = ""
     first_name = ""
     last_name = ""
+'''
