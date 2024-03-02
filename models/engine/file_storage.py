@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+"""FileStorage class"""
+
+import json
+import os
+
+class FileStorage:
+    """serializes instances to a JSON file and deserializes JSON file to instances"""
+
+     __file_path = "file.json"
+     __objects = {}
+
+    def all(self):
+        """Returns the dictionary __objects"""
+        
+        return self.__objects
+    
+    def new(self, obj):
+        """Sets in __objects the obj with key <obj class name>.id"""
+        
+        key = f"{type(obj).__name__}.{obj.id}"
+        self.__objects[key] = obj
+    
+    def save(self):
+        """Serializes __objects to the JSON file"""    
+        
+        serialized_object = {}
+        for key, value in self.__objects.items():
+             serialized_object[key] = value.to_dict()
+        with open(self.__file_path, "w") as file:
+                json.dump(serialized_object, file)
+    
+    def reload(self):
+        from models.base_model import BaseModel
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, "r") as file:
+                obj_dics = json.load(file)
+                for key, value in obj_dics.items():
+                    value = eval(key.split(".")[0])(**value)
+                    self.__objects[key] = value
+
