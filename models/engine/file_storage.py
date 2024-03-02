@@ -26,14 +26,14 @@ class FileStorage:
         
         serialized_object = {}
         for key, value in self.__objects.items():
-             serialized_object[key] = value.to_dict()
-        with open(self.__file_path, "w") as file:
-                json.dump(serialized_object, file)
-    
+            serialized_object[key] = value.to_dict()
+        with open(self.__file_path, "w") as f:
+            json.dump(serialized_object, f)
+
     def reload(self):
         from models.base_model import BaseModel
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, "r") as file:
+            with open(self.__file_path, "r") as f:
                 for key, value in json.load(f).items():
                     value = eval(key.split(".")[0])(**value)
                     self.__objects[key] = value
